@@ -1,6 +1,6 @@
 # Produto MVP
 
-Projeto desenvolvido na disciplina de Projeto de Sistemas de Software com foco no padrão MVP (Model-View-Presenter) - Passive view e na gestão e controle de produtos.
+Projeto desenvolvido na disciplina de Projeto de Sistemas de Software com foco no padrão MVP (Model-View-Presenter - Passive view) e na gestão e controle de produtos.
 
 ## 🎯 Objetivo
 
