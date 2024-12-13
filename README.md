@@ -17,7 +17,7 @@ Projeto desenvolvido na disciplina de Projeto de Sistemas de Software com foco n
 
 O diagrama de classes podem ser encontrado na pasta `/diagramaclasses` [(Clique aqui)](diagramaclasses/).
 
-![Diagrama de Classes](diagramaclasses/SistemaControledeProdutos.svg)
+![Diagrama de Classes](diagramaclasses/produtoMVPClasses.svg)
 
 ## 📋 Requisitos
 - **Linguagem**: Java 17.
