@@ -105,9 +105,9 @@ public final class ListagemProdutoPresenter implements IProdutoObservador {
             Produto produto = produtosCadastrados.get(i);
             dados[i][0] = i + 1;
             dados[i][1] = produto.getNome();
-            dados[i][2] = produto.getPrecoCusto();
+            dados[i][2] = String.format("%.2f", produto.getPrecoCusto());
             dados[i][3] = String.format("%.2f %%", produto.getPercentualLucro());
-            dados[i][4] = produto.getPrecoVenda();
+            dados[i][4] = String.format("%.2f", produto.getPrecoVenda());
         }
 
         DefaultTableModel tableModel = new DefaultTableModel(dados, colunas) {
