@@ -58,7 +58,6 @@ public final class PrincipalProdutoPresenter implements IProdutoObservador {
 
     @Override
     public void atualizar(ProdutoCollection produtoCollection) {
-        System.out.println(produtoCollection.getProdutos().size());
         this.viewPrincipal.getLblQuantidadeProdutos().setText(String.valueOf(produtoCollection.obterQuantidadeDeProdutos()));
     }
 

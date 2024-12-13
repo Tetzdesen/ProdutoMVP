@@ -57,9 +57,6 @@ public final class InclusaoProdutoPresenter {
             produtoCollection.adicionarProduto(produto);
             this.viewInclusao.getTxtPrecoVenda().setText(String.valueOf(produto.getPrecoVenda()));     
             JOptionPane.showMessageDialog(viewInclusao, "Produto incluido com sucesso");
-            
-            System.out.println(produtoCollection.getProdutos().toString());
-
         } catch (ParseException | NumberFormatException erroDeDados) {
             JOptionPane.showMessageDialog(viewInclusao, "Favor informar dados válidos!" + erroDeDados);
 

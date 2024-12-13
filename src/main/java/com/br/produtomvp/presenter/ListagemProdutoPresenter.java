@@ -83,12 +83,9 @@ public final class ListagemProdutoPresenter implements IProdutoObservador {
             );
 
             if (confirmacao == JOptionPane.YES_OPTION) {
-
-                System.out.println(linhaSelecionada);
                 Produto produto = produtoCollection.getProdutos().get(linhaSelecionada);
                 produtoCollection.removerProduto(produto);
                 JOptionPane.showMessageDialog(viewListagem, "Produto excluido com sucesso");
-                System.out.println(produtoCollection.getProdutos());
             }
         }
 

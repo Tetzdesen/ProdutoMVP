@@ -45,13 +45,13 @@ public final class PrincipalProdutoView extends javax.swing.JFrame {
         mnuItemListarProdutos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Tela Principal Produtos");
+        setTitle("Tela Principal de Produto");
         setResizable(false);
 
-        lblTotalProdutos.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblTotalProdutos.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblTotalProdutos.setText("Total de produtos:");
 
-        lblQuantidadeProdutos.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
+        lblQuantidadeProdutos.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblQuantidadeProdutos.setText("0");
 
         mnuGerenciarProduto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -75,7 +75,7 @@ public final class PrincipalProdutoView extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(418, Short.MAX_VALUE)
+                .addContainerGap(438, Short.MAX_VALUE)
                 .addComponent(lblTotalProdutos)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblQuantidadeProdutos)
@@ -84,7 +84,7 @@ public final class PrincipalProdutoView extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 101, Short.MAX_VALUE)
+                .addGap(0, 104, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblQuantidadeProdutos)
                     .addComponent(lblTotalProdutos)))
