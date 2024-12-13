@@ -4,7 +4,7 @@ Projeto desenvolvido na disciplina de Projeto de Sistemas de Software com foco n
 
 ## 🎯 Objetivo
 
-- O projeto implementa uma arquitetura MVP (Model-View-Presenter) - Passive View.
+- O projeto implementa uma arquitetura MVP (Model-View-Presenter - Passive View).
 - Sistema para controle de estoque e gestão de produtos.
 - A implementação atende aos princípios de design orientado a objetos e utiliza Java 17 e Maven.
 
