@@ -19,7 +19,9 @@ public final class ListagemProdutoPresenter implements IProdutoObservador {
     private final ProdutoCollection produtoCollection;
 
     public ListagemProdutoPresenter(ProdutoCollection produtoCollection) {
-
+        if(produtoCollection == null){
+            throw new IllegalArgumentException("Produto Collection é nulo/invalido ");
+        }
         this.viewListagem = new ListagemProdutoView();
         this.produtoCollection = produtoCollection;
         configuraObserver();
@@ -42,7 +44,9 @@ public final class ListagemProdutoPresenter implements IProdutoObservador {
         configuraListeners();
 
         viewListagem.setLocationRelativeTo(null);
-
+        
+        atualizar(produtoCollection);
+        
         this.viewListagem.setVisible(true);
 
     }

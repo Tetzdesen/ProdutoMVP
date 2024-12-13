@@ -16,6 +16,9 @@ public final class PrincipalProdutoPresenter implements IProdutoObservador {
     private final ProdutoCollection produtoCollection;
 
     public PrincipalProdutoPresenter(ProdutoCollection produtoCollection) {
+        if(produtoCollection == null){
+            throw new IllegalArgumentException("Produto Collection nulo/invalido");
+        }
         this.viewPrincipal = new PrincipalProdutoView();
         this.produtoCollection = produtoCollection;
         configuraObserver();
@@ -28,7 +31,6 @@ public final class PrincipalProdutoPresenter implements IProdutoObservador {
 
     private void configuraView() {
         this.viewPrincipal.setVisible(false);
-
         configuraListeners();
         this.viewPrincipal.setLocationRelativeTo(null);
         this.viewPrincipal.setVisible(true);
@@ -57,7 +59,7 @@ public final class PrincipalProdutoPresenter implements IProdutoObservador {
     @Override
     public void atualizar(ProdutoCollection produtoCollection) {
         System.out.println(produtoCollection.getProdutos().size());
-        this.viewPrincipal.getLblQuantidadeProdutos().setText(String.valueOf(produtoCollection.getQuantidadeTotalProdutos()));
+        this.viewPrincipal.getLblQuantidadeProdutos().setText(String.valueOf(produtoCollection.obterQuantidadeDeProdutos()));
     }
 
 }

@@ -60,7 +60,7 @@ public final class ProdutoCollection {
         return Optional.empty();
     }
 
-    public int getQuantidadeTotalProdutos() {
+    public int obterQuantidadeDeProdutos() {
         return produtos.size();
     }
 

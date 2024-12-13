@@ -17,6 +17,9 @@ public final class InclusaoProdutoPresenter {
     private final ProdutoCollection produtoCollection;
 
     public InclusaoProdutoPresenter(ProdutoCollection produtoCollection) {
+        if (produtoCollection == null) {
+            throw new IllegalArgumentException("Produto Collection é nulo/invalido ");
+        }
         this.produtoCollection = produtoCollection;
         this.viewInclusao = new InclusaoProdutoView();
         configuraView();
@@ -44,24 +47,17 @@ public final class InclusaoProdutoPresenter {
     }
 
     private void salvar() throws Exception {
+        
         try {
-
             String nome = viewInclusao.getTxtNome().getText();
-
             double precoCusto = Double.parseDouble(viewInclusao.getTxtPrecoCusto().getText());
-
             double percentualLucro = Double.parseDouble(viewInclusao.getTxtPercentualLucro().getText());
-
             verificarCampos(nome, precoCusto, percentualLucro);
-
             Produto produto = new Produto(nome, precoCusto, percentualLucro);
-
             produtoCollection.adicionarProduto(produto);
-
+            this.viewInclusao.getTxtPrecoVenda().setText(String.valueOf(produto.getPrecoVenda()));     
             JOptionPane.showMessageDialog(viewInclusao, "Produto incluido com sucesso");
-
-            limparCampos();
-
+            
             System.out.println(produtoCollection.getProdutos().toString());
 
         } catch (ParseException | NumberFormatException erroDeDados) {
@@ -78,28 +74,21 @@ public final class InclusaoProdutoPresenter {
     }
 
     private void verificarCampos(String nome, double precoCusto, double percentualLucro) throws Exception {
-
         if (nome == null || nome.isEmpty()) {
             throw new Exception("Nome do produto é obrigatório ");
         }
-
         if (precoCusto <= 0) {
             throw new Exception("Preço de custo deve ser maior que zero ");
         }
-
         if (percentualLucro <= 0) {
             throw new Exception("Percentual de lucro deve ser maior que zero ");
         }
-
     }
 
     private void limparCampos() {
-
         this.viewInclusao.getTxtNome().setText("");
         this.viewInclusao.getTxtPrecoCusto().setText("");
         this.viewInclusao.getTxtPercentualLucro().setText("");
         this.viewInclusao.getTxtPrecoVenda().setText("");
-
     }
-
 }
