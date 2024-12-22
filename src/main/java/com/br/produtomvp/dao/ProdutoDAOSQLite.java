@@ -1,6 +1,7 @@
 package com.br.produtomvp.dao;
 
 import com.br.produtomvp.model.Produto;
+import com.br.produtomvp.singleton.SQLiteConnectionSingleton;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,6 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
@@ -20,7 +22,7 @@ public class ProdutoDAOSQLite implements ProdutoDAO {
 
     public ProdutoDAOSQLite() {
         try {
-            connection = DriverManager.getConnection("");
+            connection = SQLiteConnectionSingleton.getInstance().getConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -54,12 +56,31 @@ public class ProdutoDAOSQLite implements ProdutoDAO {
     }
 
     @Override
-    public Produto lerProdutoPorID(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Optional<Produto> buscarProdutoPorID(int id) {
+           String sql = "SELECT * FROM produto WHERE id = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    Produto produto = new Produto();
+                    produto.setIdProduto(rs.getInt("idProduto"));
+                    produto.setNome(rs.getString("nome"));
+                    produto.setPrecoCusto(rs.getDouble("precoCusto"));
+                    produto.setPercentualLucro(rs.getDouble("percentualLucro"));
+                    produto.setPrecoVenda(rs.getDouble("precoVenda"));
+                    return Optional.of(produto);
+                } else {
+                    return Optional.empty();
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao buscar cliente pelo ID" +  e.getMessage());
+        }
+
     }
 
     @Override
-    public List<Produto> lerTodosProdutos() {
+    public List<Produto> buscarTodosProdutos() {
         
         String sql = "SELECT * FROM produto";
         
@@ -70,7 +91,7 @@ public class ProdutoDAOSQLite implements ProdutoDAO {
             while (rs.next()) {
                 
                 Produto produto = new Produto();
-                produto.setIdProduto(rs.getInt("id"));
+                produto.setIdProduto(rs.getInt("idProduto"));
                 produto.setNome(rs.getString("nome"));
                 produto.setPrecoCusto(rs.getDouble("precoCusto"));
                 produto.setPercentualLucro(rs.getDouble("percentualLucro"));
@@ -78,7 +99,7 @@ public class ProdutoDAOSQLite implements ProdutoDAO {
                 produtos.add(produto);
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Erro ao listar todos os clientes: " + e.getMessage());
+            throw new RuntimeException("Erro ao listar todos os produtos: " + e.getMessage());
         }
         return produtos;
 
@@ -100,7 +121,7 @@ public class ProdutoDAOSQLite implements ProdutoDAO {
 
     @Override
     public void deletarProdutoPorID(int id) {
-        String sql = "DELETE FROM produto WHERE id = ?";
+        String sql = "DELETE FROM produto WHERE idProduto = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();

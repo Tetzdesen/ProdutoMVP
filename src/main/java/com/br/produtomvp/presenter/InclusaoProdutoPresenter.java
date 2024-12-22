@@ -1,6 +1,8 @@
 package com.br.produtomvp.presenter;
 
 import com.br.produtomvp.collection.ProdutoCollection;
+import com.br.produtomvp.dao.GerenciadorProdutoService;
+import com.br.produtomvp.dao.ProdutoDAO;
 import com.br.produtomvp.model.Produto;
 import com.br.produtomvp.view.InclusaoProdutoView;
 import java.awt.event.ActionEvent;
@@ -15,12 +17,14 @@ public final class InclusaoProdutoPresenter {
 
     private final InclusaoProdutoView viewInclusao;
     private final ProdutoCollection produtoCollection;
-
-    public InclusaoProdutoPresenter(ProdutoCollection produtoCollection) {
+    private final GerenciadorProdutoService gerenciadorProduto;
+    
+    public InclusaoProdutoPresenter(ProdutoCollection produtoCollection, GerenciadorProdutoService gerenciadorProduto) {
         if (produtoCollection == null) {
             throw new IllegalArgumentException("Produto Collection é nulo/invalido ");
         }
         this.produtoCollection = produtoCollection;
+        this.gerenciadorProduto = gerenciadorProduto;
         this.viewInclusao = new InclusaoProdutoView();
         configuraView();
     }
@@ -55,6 +59,7 @@ public final class InclusaoProdutoPresenter {
             verificarCampos(nome, precoCusto, percentualLucro);
             Produto produto = new Produto(nome, precoCusto, percentualLucro);
             produtoCollection.adicionarProduto(produto);
+            gerenciadorProduto.adicionarProduto(produto);
             this.viewInclusao.getTxtPrecoVenda().setText(String.valueOf(produto.getPrecoVenda()));     
             JOptionPane.showMessageDialog(viewInclusao, "Produto incluido com sucesso");
         } catch (ParseException | NumberFormatException erroDeDados) {

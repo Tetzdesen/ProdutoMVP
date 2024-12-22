@@ -58,6 +58,10 @@ public final class Produto {
     public void setPercentualLucro(double percentualLucro) {
         this.percentualLucro = percentualLucro;
     }
+
+    public void setPrecoVenda(double precoVenda) {
+        this.precoVenda = precoVenda;
+    }
    
     private double calcularPrecoVenda() {
         return precoCusto + (precoCusto * percentualLucro / 100);

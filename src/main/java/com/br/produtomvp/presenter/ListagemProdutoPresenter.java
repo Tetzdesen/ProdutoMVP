@@ -1,6 +1,8 @@
 package com.br.produtomvp.presenter;
 
 import com.br.produtomvp.collection.ProdutoCollection;
+import com.br.produtomvp.dao.GerenciadorProdutoService;
+import com.br.produtomvp.dao.ProdutoDAO;
 import com.br.produtomvp.model.Produto;
 import com.br.produtomvp.view.ListagemProdutoView;
 import java.util.List;
@@ -17,18 +19,20 @@ public final class ListagemProdutoPresenter implements IProdutoObservador {
 
     private final ListagemProdutoView viewListagem;
     private final ProdutoCollection produtoCollection;
+    private final GerenciadorProdutoService gerenciadorProduto;
 
-    public ListagemProdutoPresenter(ProdutoCollection produtoCollection) {
-        if(produtoCollection == null){
+    public ListagemProdutoPresenter(ProdutoCollection produtoCollection, GerenciadorProdutoService gerenciadorProduto) {
+        if (produtoCollection == null) {
             throw new IllegalArgumentException("Produto Collection é nulo/invalido ");
         }
         this.viewListagem = new ListagemProdutoView();
         this.produtoCollection = produtoCollection;
+        this.gerenciadorProduto = gerenciadorProduto;
         configuraObserver();
         configuraView();
 
     }
-    
+
     private void configuraObserver() {
         this.produtoCollection.adicionarObservador(this);
     }
@@ -44,9 +48,9 @@ public final class ListagemProdutoPresenter implements IProdutoObservador {
         configuraListeners();
 
         viewListagem.setLocationRelativeTo(null);
-        
+
         atualizar(produtoCollection);
-        
+
         this.viewListagem.setVisible(true);
 
     }
@@ -85,14 +89,14 @@ public final class ListagemProdutoPresenter implements IProdutoObservador {
             if (confirmacao == JOptionPane.YES_OPTION) {
                 Produto produto = produtoCollection.getProdutos().get(linhaSelecionada);
                 produtoCollection.removerProduto(produto);
+                gerenciadorProduto.deletarProdutoPorID(produto.getIdProduto());
                 JOptionPane.showMessageDialog(viewListagem, "Produto excluido com sucesso");
             }
         }
 
     }
 
-    @Override
-    public void atualizar(ProdutoCollection produtoCollection) {
+    private void listarProdutos() {
         List<Produto> produtosCadastrados = produtoCollection.getProdutos();
 
         String[] colunas = {"ID", "Nome", "Preço de Custo", "Percentual de Lucro", "Preço de Venda"};
@@ -120,5 +124,10 @@ public final class ListagemProdutoPresenter implements IProdutoObservador {
         viewListagem.getTblProdutos().setModel(tableModel);
 
         viewListagem.getTblProdutos().setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+    }
+
+    @Override
+    public void atualizar(ProdutoCollection produtoCollection) {
+        listarProdutos();
     }
 }

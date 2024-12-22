@@ -1,6 +1,8 @@
 package com.br.produtomvp.principal;
 
 import com.br.produtomvp.collection.ProdutoCollection;
+import com.br.produtomvp.dao.ProdutoDAO;
+import com.br.produtomvp.dao.ProdutoDAOSQLite;
 import com.br.produtomvp.presenter.PrincipalProdutoPresenter;
 import java.util.Locale;
 import javax.swing.JOptionPane;
