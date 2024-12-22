@@ -19,8 +19,8 @@ public class GerenciadorProdutoService {
         produtoDAO.criarProduto(produto);
     }
     
-    public List<Produto> lerProdutos(){
-        return produtoDAO.lerTodosProdutos();
+    public List<Produto> buscarProdutos(){
+        return produtoDAO.buscarTodosProdutos();
     }
     
     public void atualizarProduto(Produto produto){
