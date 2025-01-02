@@ -2,7 +2,6 @@ package com.br.produtomvp.presenter;
 
 import com.br.produtomvp.collection.ProdutoCollection;
 import com.br.produtomvp.dao.GerenciadorProdutoService;
-import com.br.produtomvp.dao.ProdutoDAO;
 import com.br.produtomvp.model.Produto;
 import com.br.produtomvp.view.InclusaoProdutoView;
 import java.awt.event.ActionEvent;
