@@ -95,7 +95,7 @@ public class ProdutoDAOSQLite implements ProdutoDAO {
                 produto.setNome(rs.getString("nome"));
                 produto.setPrecoCusto(rs.getDouble("precoCusto"));
                 produto.setPercentualLucro(rs.getDouble("percentualLucro"));
-                
+                produto.setPrecoVenda(rs.getDouble("precoVenda"));
                 produtos.add(produto);
             }
         } catch (SQLException e) {
