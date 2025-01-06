@@ -37,12 +37,20 @@ public final class PrincipalProdutoView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem5 = new javax.swing.JMenuItem();
         lblTotalProdutos = new javax.swing.JLabel();
         lblQuantidadeProdutos = new javax.swing.JLabel();
-        mnuGerenciarProduto = new javax.swing.JMenuBar();
-        mnuIncluir = new javax.swing.JMenu();
+        mnuBarProduto = new javax.swing.JMenuBar();
+        mnuProduto = new javax.swing.JMenu();
         mnuItemIncluir = new javax.swing.JMenuItem();
         mnuItemListarProdutos = new javax.swing.JMenuItem();
+        mnuGerenciarLog = new javax.swing.JMenu();
+        mnuItemJSON = new javax.swing.JMenuItem();
+        mnuItemXML = new javax.swing.JMenuItem();
+        mnuDB = new javax.swing.JMenu();
+        mnuItemSQLite = new javax.swing.JMenuItem();
+
+        jMenuItem5.setText("jMenuItem5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Principal de Produto");
@@ -54,21 +62,38 @@ public final class PrincipalProdutoView extends javax.swing.JFrame {
         lblQuantidadeProdutos.setFont(new java.awt.Font("Arial", 1, 16)); // NOI18N
         lblQuantidadeProdutos.setText("0");
 
-        mnuGerenciarProduto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        mnuBarProduto.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
-        mnuIncluir.setText("Produto");
+        mnuProduto.setText("Produto");
 
         mnuItemIncluir.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         mnuItemIncluir.setText("Incluir");
-        mnuIncluir.add(mnuItemIncluir);
+        mnuProduto.add(mnuItemIncluir);
 
         mnuItemListarProdutos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         mnuItemListarProdutos.setText("Listar");
-        mnuIncluir.add(mnuItemListarProdutos);
+        mnuProduto.add(mnuItemListarProdutos);
 
-        mnuGerenciarProduto.add(mnuIncluir);
+        mnuBarProduto.add(mnuProduto);
 
-        setJMenuBar(mnuGerenciarProduto);
+        mnuGerenciarLog.setText("Configurar Log");
+
+        mnuItemJSON.setText("JSON");
+        mnuGerenciarLog.add(mnuItemJSON);
+
+        mnuItemXML.setText("XML");
+        mnuGerenciarLog.add(mnuItemXML);
+
+        mnuDB.setText("DB");
+
+        mnuItemSQLite.setText("SQLite");
+        mnuDB.add(mnuItemSQLite);
+
+        mnuGerenciarLog.add(mnuDB);
+
+        mnuBarProduto.add(mnuGerenciarLog);
+
+        setJMenuBar(mnuBarProduto);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -95,11 +120,17 @@ public final class PrincipalProdutoView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JLabel lblQuantidadeProdutos;
     private javax.swing.JLabel lblTotalProdutos;
-    private javax.swing.JMenuBar mnuGerenciarProduto;
-    private javax.swing.JMenu mnuIncluir;
+    private javax.swing.JMenuBar mnuBarProduto;
+    private javax.swing.JMenu mnuDB;
+    private javax.swing.JMenu mnuGerenciarLog;
     private javax.swing.JMenuItem mnuItemIncluir;
+    private javax.swing.JMenuItem mnuItemJSON;
     private javax.swing.JMenuItem mnuItemListarProdutos;
+    private javax.swing.JMenuItem mnuItemSQLite;
+    private javax.swing.JMenuItem mnuItemXML;
+    private javax.swing.JMenu mnuProduto;
     // End of variables declaration//GEN-END:variables
 }
