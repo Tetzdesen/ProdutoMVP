@@ -3,6 +3,7 @@ package com.br.produtomvp.principal;
 import com.br.produtomvp.collection.ProdutoCollection;
 import com.br.produtomvp.dao.ProdutoDAO;
 import com.br.produtomvp.dao.ProdutoDAOSQLite;
+import com.br.produtomvp.factory.DAOFactory;
 import com.br.produtomvp.presenter.PrincipalProdutoPresenter;
 import java.util.Locale;
 import javax.swing.JOptionPane;
@@ -17,8 +18,12 @@ public class Principal {
     public static void main(String[] args) {
         configurarLinguagem();
         configurarLookAndFeel();    
-        ProdutoCollection produtoCollection = new ProdutoCollection();
-        new PrincipalProdutoPresenter(produtoCollection);
+        
+    //    DAOFactory daoFactory  = DAOFactory.getDAOFactory("com.br.produtomvp.factory.SQLiteDAOFactory");
+   //     ProdutoDAO produtoDAO = daoFactory.getProdutoDAO();
+      //  System.out.println(produtoDAO.buscarTodosProdutos());
+      ProdutoCollection produtoCollection = new ProdutoCollection();
+      new PrincipalProdutoPresenter(produtoCollection);
     }
 
     private static void configurarLinguagem() {
