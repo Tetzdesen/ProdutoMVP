@@ -19,11 +19,11 @@ public class Principal {
         configurarLinguagem();
         configurarLookAndFeel();    
         
-    //    DAOFactory daoFactory  = DAOFactory.getDAOFactory("com.br.produtomvp.factory.SQLiteDAOFactory");
-   //     ProdutoDAO produtoDAO = daoFactory.getProdutoDAO();
-      //  System.out.println(produtoDAO.buscarTodosProdutos());
-      ProdutoCollection produtoCollection = new ProdutoCollection();
-      new PrincipalProdutoPresenter(produtoCollection);
+        DAOFactory daoFactory  = DAOFactory.getDAOFactory("SQLite");
+        ProdutoDAO produtoDAO = daoFactory.getProdutoDAO();
+        System.out.println(produtoDAO.buscarTodosProdutos());
+     // ProdutoCollection produtoCollection = new ProdutoCollection();
+    //  new PrincipalProdutoPresenter(produtoCollection);
     }
 
     private static void configurarLinguagem() {
