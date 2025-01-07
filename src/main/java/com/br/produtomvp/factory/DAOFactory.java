@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.br.produtomvp.factory;
 
 import com.br.produtomvp.dao.ProdutoDAO;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -14,16 +11,22 @@ import java.util.logging.Logger;
  * @author tetzner
  */
 public abstract class DAOFactory {
+    private static final Map<String, String> classMap = Map.of(
+        "SQLite", "com.br.produtomvp.factory.SQLiteDAOFactory"
+    );
     public abstract ProdutoDAO getProdutoDAO();
     
     public static DAOFactory getDAOFactory(String nomeClasseSGBD){
+        DAOFactory daoFactory = null;
+        String classeDB = classMap.get(nomeClasseSGBD);
+        System.out.println(classeDB);
         try {
-            Class<?> nomeClasse = Class.forName(nomeClasseSGBD);
+            Class<?> nomeClasse = Class.forName(classeDB);
             var construtor = nomeClasse.getConstructor();
-            return (DAOFactory) construtor.newInstance();
+            daoFactory = (DAOFactory) construtor.newInstance();
         } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            Logger.getLogger(DAOFactory.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOFactory   .class.getName()).log(Level.SEVERE, null, ex);
         }
-        return null;
+        return daoFactory;
     }
 }
