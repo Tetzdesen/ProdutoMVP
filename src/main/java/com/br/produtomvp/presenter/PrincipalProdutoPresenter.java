@@ -60,6 +60,36 @@ public final class PrincipalProdutoPresenter implements IProdutoObservador {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         });
+        
+        this.viewPrincipal.getMnuRadioJSON().addActionListener((ActionEvent e) -> {
+            try {
+                  this.viewPrincipal.getMnuRadioXML().setSelected(false);
+                  this.viewPrincipal.getMnuRadioSQLite().setSelected(false);
+                  
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        });
+        
+        this.viewPrincipal.getMnuRadioXML().addActionListener((ActionEvent e) -> {
+            try {
+                  this.viewPrincipal.getMnuRadioJSON().setSelected(false);
+                  this.viewPrincipal.getMnuRadioSQLite().setSelected(false);
+                  
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        });
+        
+          this.viewPrincipal.getMnuRadioSQLite().addActionListener((ActionEvent e) -> {
+            try {
+                  this.viewPrincipal.getMnuRadioJSON().setSelected(false);
+                  this.viewPrincipal.getMnuRadioXML().setSelected(false);
+                  
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        });
 
     }
     
