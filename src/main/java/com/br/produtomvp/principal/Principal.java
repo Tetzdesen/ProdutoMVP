@@ -5,6 +5,7 @@ import com.br.produtomvp.dao.ProdutoDAO;
 import com.br.produtomvp.dao.ProdutoDAOSQLite;
 import com.br.produtomvp.factory.DAOFactory;
 import com.br.produtomvp.presenter.PrincipalProdutoPresenter;
+import io.github.cdimascio.dotenv.Dotenv;
 import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -16,14 +17,22 @@ import javax.swing.UIManager;
 public class Principal {
 
     public static void main(String[] args) {
-        configurarLinguagem();
-        configurarLookAndFeel();    
         
-        DAOFactory daoFactory  = DAOFactory.getDAOFactory("SQLite");
+        configurarLinguagem();
+        configurarLookAndFeel();
+        
+        Dotenv dotenv = Dotenv.configure()
+                .ignoreIfMalformed()
+                .ignoreIfMissing()
+                .load();
+
+        String SGBD = dotenv.get("DB");
+        DAOFactory daoFactory = DAOFactory.getDAOFactory(SGBD);
         ProdutoDAO produtoDAO = daoFactory.getProdutoDAO();
         System.out.println(produtoDAO.buscarTodosProdutos());
-     // ProdutoCollection produtoCollection = new ProdutoCollection();
-    //  new PrincipalProdutoPresenter(produtoCollection);
+        // ProdutoCollection produtoCollection = new ProdutoCollection();
+        //  new PrincipalProdutoPresenter(produtoCollection);
+        
     }
 
     private static void configurarLinguagem() {
@@ -44,5 +53,6 @@ public class Principal {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             JOptionPane.showMessageDialog(null, "Erro ao configurar Look and Feel: " + ex.getMessage());
         }
-    }
+    } 
 }
+
