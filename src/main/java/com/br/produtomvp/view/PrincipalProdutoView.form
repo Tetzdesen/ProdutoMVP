@@ -2,11 +2,6 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Component class="javax.swing.JMenuItem" name="jMenuItem5">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jMenuItem5"/>
-      </Properties>
-    </Component>
     <Menu class="javax.swing.JMenuBar" name="mnuBarProduto">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -42,12 +37,12 @@
             <Property name="text" type="java.lang.String" value="Configurar Log"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="mnuItemJSON">
+            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="mnuRadioJSON">
               <Properties>
                 <Property name="text" type="java.lang.String" value="JSON"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mnuItemXML">
+            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="mnuRadioXML">
               <Properties>
                 <Property name="text" type="java.lang.String" value="XML"/>
               </Properties>
@@ -57,7 +52,7 @@
                 <Property name="text" type="java.lang.String" value="DB"/>
               </Properties>
               <SubComponents>
-                <MenuItem class="javax.swing.JMenuItem" name="mnuItemSQLite">
+                <MenuItem class="javax.swing.JRadioButtonMenuItem" name="mnuRadioSQLite">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="SQLite"/>
                   </Properties>

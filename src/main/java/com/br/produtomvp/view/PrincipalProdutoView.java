@@ -2,6 +2,7 @@ package com.br.produtomvp.view;
 
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
 
 /**
  *
@@ -28,6 +29,18 @@ public final class PrincipalProdutoView extends javax.swing.JFrame {
         return lblQuantidadeProdutos;
     }
     
+    public JRadioButtonMenuItem getMnuRadioJSON() {
+        return mnuRadioJSON;
+    }
+
+    public JRadioButtonMenuItem getMnuRadioXML() {
+        return mnuRadioXML;
+    }
+
+    public JRadioButtonMenuItem getMnuRadioSQLite() {
+        return mnuRadioSQLite;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,7 +50,6 @@ public final class PrincipalProdutoView extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuItem5 = new javax.swing.JMenuItem();
         lblTotalProdutos = new javax.swing.JLabel();
         lblQuantidadeProdutos = new javax.swing.JLabel();
         mnuBarProduto = new javax.swing.JMenuBar();
@@ -45,12 +57,10 @@ public final class PrincipalProdutoView extends javax.swing.JFrame {
         mnuItemIncluir = new javax.swing.JMenuItem();
         mnuItemListarProdutos = new javax.swing.JMenuItem();
         mnuGerenciarLog = new javax.swing.JMenu();
-        mnuItemJSON = new javax.swing.JMenuItem();
-        mnuItemXML = new javax.swing.JMenuItem();
+        mnuRadioJSON = new javax.swing.JRadioButtonMenuItem();
+        mnuRadioXML = new javax.swing.JRadioButtonMenuItem();
         mnuDB = new javax.swing.JMenu();
-        mnuItemSQLite = new javax.swing.JMenuItem();
-
-        jMenuItem5.setText("jMenuItem5");
+        mnuRadioSQLite = new javax.swing.JRadioButtonMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Principal de Produto");
@@ -78,16 +88,16 @@ public final class PrincipalProdutoView extends javax.swing.JFrame {
 
         mnuGerenciarLog.setText("Configurar Log");
 
-        mnuItemJSON.setText("JSON");
-        mnuGerenciarLog.add(mnuItemJSON);
+        mnuRadioJSON.setText("JSON");
+        mnuGerenciarLog.add(mnuRadioJSON);
 
-        mnuItemXML.setText("XML");
-        mnuGerenciarLog.add(mnuItemXML);
+        mnuRadioXML.setText("XML");
+        mnuGerenciarLog.add(mnuRadioXML);
 
         mnuDB.setText("DB");
 
-        mnuItemSQLite.setText("SQLite");
-        mnuDB.add(mnuItemSQLite);
+        mnuRadioSQLite.setText("SQLite");
+        mnuDB.add(mnuRadioSQLite);
 
         mnuGerenciarLog.add(mnuDB);
 
@@ -120,17 +130,16 @@ public final class PrincipalProdutoView extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JLabel lblQuantidadeProdutos;
     private javax.swing.JLabel lblTotalProdutos;
     private javax.swing.JMenuBar mnuBarProduto;
     private javax.swing.JMenu mnuDB;
     private javax.swing.JMenu mnuGerenciarLog;
     private javax.swing.JMenuItem mnuItemIncluir;
-    private javax.swing.JMenuItem mnuItemJSON;
     private javax.swing.JMenuItem mnuItemListarProdutos;
-    private javax.swing.JMenuItem mnuItemSQLite;
-    private javax.swing.JMenuItem mnuItemXML;
     private javax.swing.JMenu mnuProduto;
+    private javax.swing.JRadioButtonMenuItem mnuRadioJSON;
+    private javax.swing.JRadioButtonMenuItem mnuRadioSQLite;
+    private javax.swing.JRadioButtonMenuItem mnuRadioXML;
     // End of variables declaration//GEN-END:variables
 }
