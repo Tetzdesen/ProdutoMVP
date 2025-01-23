@@ -30,8 +30,7 @@ public class Principal {
         DAOFactory daoFactory = DAOFactory.getDAOFactory(SGBD);
         ProdutoDAO produtoDAO = daoFactory.getProdutoDAO();
         System.out.println(produtoDAO.buscarTodosProdutos());
-        ProdutoCollection produtoCollection = new ProdutoCollection();
-        new PrincipalProdutoPresenter(produtoCollection);
+        new PrincipalProdutoPresenter(produtoDAO);
         
     }
 

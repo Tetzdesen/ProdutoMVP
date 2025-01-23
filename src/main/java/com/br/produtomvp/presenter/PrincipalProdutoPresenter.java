@@ -2,7 +2,7 @@ package com.br.produtomvp.presenter;
 
 import com.br.produtomvp.collection.ProdutoCollection;
 import com.br.produtomvp.dao.GerenciadorProdutoService;
-import com.br.produtomvp.dao.ProdutoDAOSQLite;
+import com.br.produtomvp.dao.ProdutoDAO;
 import com.br.produtomvp.model.Produto;
 import com.br.produtomvp.view.PrincipalProdutoView;
 import java.awt.event.ActionEvent;
@@ -20,13 +20,10 @@ public final class PrincipalProdutoPresenter implements IProdutoObservador {
     private final ProdutoCollection produtoCollection;
     private final GerenciadorProdutoService gerenciadorProduto;
     
-    public PrincipalProdutoPresenter(ProdutoCollection produtoCollection) {
-        if(produtoCollection == null){
-            throw new IllegalArgumentException("Produto Collection nulo/invalido");
-        }
+    public PrincipalProdutoPresenter(ProdutoDAO produtoDAO) {
         this.viewPrincipal = new PrincipalProdutoView();
-        this.produtoCollection = produtoCollection;
-        this.gerenciadorProduto = new GerenciadorProdutoService(new ProdutoDAOSQLite());        
+        this.produtoCollection = new ProdutoCollection();
+        this.gerenciadorProduto = new GerenciadorProdutoService(produtoDAO);        
         configuraObserver();
         copiarDadosProdutosParaCollection();
         configuraView();
@@ -46,46 +43,15 @@ public final class PrincipalProdutoPresenter implements IProdutoObservador {
     private void configuraListeners() {
         this.viewPrincipal.getMnuItemIncluir().addActionListener((ActionEvent e) -> {
             try {
-                new InclusaoProdutoPresenter(produtoCollection, gerenciadorProduto);
-
+                new ProdutoPresenter(produtoCollection, gerenciadorProduto);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         });
 
-        this.viewPrincipal.getMnuItemListarProdutos().addActionListener((ActionEvent e) -> {
+        this.viewPrincipal.getMnuItemBuscarProdutos().addActionListener((ActionEvent e) -> {
             try {
-                new ListagemProdutoPresenter(produtoCollection, gerenciadorProduto);
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            }
-        });
-        
-        this.viewPrincipal.getMnuRadioJSON().addActionListener((ActionEvent e) -> {
-            try {
-                  this.viewPrincipal.getMnuRadioXML().setSelected(false);
-                  this.viewPrincipal.getMnuRadioSQLite().setSelected(false);
-                  
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            }
-        });
-        
-        this.viewPrincipal.getMnuRadioXML().addActionListener((ActionEvent e) -> {
-            try {
-                  this.viewPrincipal.getMnuRadioJSON().setSelected(false);
-                  this.viewPrincipal.getMnuRadioSQLite().setSelected(false);
-                  
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
-            }
-        });
-        
-          this.viewPrincipal.getMnuRadioSQLite().addActionListener((ActionEvent e) -> {
-            try {
-                  this.viewPrincipal.getMnuRadioJSON().setSelected(false);
-                  this.viewPrincipal.getMnuRadioXML().setSelected(false);
-                  
+                new BuscarProdutoPresenter(produtoCollection, gerenciadorProduto);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
