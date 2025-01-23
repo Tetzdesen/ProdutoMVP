@@ -3,7 +3,7 @@ package com.br.produtomvp.presenter;
 import com.br.produtomvp.collection.ProdutoCollection;
 import com.br.produtomvp.dao.GerenciadorProdutoService;
 import com.br.produtomvp.model.Produto;
-import com.br.produtomvp.view.InclusaoProdutoView;
+import com.br.produtomvp.view.ProdutoView;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
 import javax.swing.JOptionPane;
@@ -12,19 +12,19 @@ import javax.swing.JOptionPane;
  *
  * @author tetzner
  */
-public final class InclusaoProdutoPresenter {
+public final class ProdutoPresenter {
 
-    private final InclusaoProdutoView viewInclusao;
+    private final ProdutoView viewInclusao;
     private final ProdutoCollection produtoCollection;
     private final GerenciadorProdutoService gerenciadorProduto;
     
-    public InclusaoProdutoPresenter(ProdutoCollection produtoCollection, GerenciadorProdutoService gerenciadorProduto) {
+    public ProdutoPresenter(ProdutoCollection produtoCollection, GerenciadorProdutoService gerenciadorProduto) {
         if (produtoCollection == null) {
             throw new IllegalArgumentException("Produto Collection é nulo/invalido ");
         }
         this.produtoCollection = produtoCollection;
         this.gerenciadorProduto = gerenciadorProduto;
-        this.viewInclusao = new InclusaoProdutoView();
+        this.viewInclusao = new ProdutoView();
         configuraView();
     }
 
@@ -61,6 +61,9 @@ public final class InclusaoProdutoPresenter {
             gerenciadorProduto.adicionarProduto(produto);
             this.viewInclusao.getTxtPrecoVenda().setText(String.valueOf(produto.getPrecoVenda()));     
             JOptionPane.showMessageDialog(viewInclusao, "Produto incluido com sucesso");
+            limparCampos();
+            cancelar();
+            //new VisualizacaoProdutoPresenter(produtoCollection, gerenciadorProduto).exibirProduto(produto);
         } catch (ParseException | NumberFormatException erroDeDados) {
             JOptionPane.showMessageDialog(viewInclusao, "Favor informar dados válidos!" + erroDeDados);
 

@@ -3,28 +3,28 @@ package com.br.produtomvp.presenter;
 import com.br.produtomvp.collection.ProdutoCollection;
 import com.br.produtomvp.dao.GerenciadorProdutoService;
 import com.br.produtomvp.model.Produto;
-import com.br.produtomvp.view.ListagemProdutoView;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import com.br.produtomvp.observer.IProdutoObservador;
+import com.br.produtomvp.view.BuscarProdutoView;
 
 /**
  *
  * @author tetzner
  */
-public final class ListagemProdutoPresenter implements IProdutoObservador {
+public final class BuscarProdutoPresenter implements IProdutoObservador {
 
-    private final ListagemProdutoView viewListagem;
+    private final BuscarProdutoView viewBuscar;
     private final ProdutoCollection produtoCollection;
     private final GerenciadorProdutoService gerenciadorProduto;
 
-    public ListagemProdutoPresenter(ProdutoCollection produtoCollection, GerenciadorProdutoService gerenciadorProduto) {
+    public BuscarProdutoPresenter(ProdutoCollection produtoCollection, GerenciadorProdutoService gerenciadorProduto) {
         if (produtoCollection == null) {
             throw new IllegalArgumentException("Produto Collection é nulo/invalido ");
         }
-        this.viewListagem = new ListagemProdutoView();
+        this.viewBuscar = new BuscarProdutoView();
         this.produtoCollection = produtoCollection;
         this.gerenciadorProduto = gerenciadorProduto;
         configuraObserver();
@@ -38,60 +38,61 @@ public final class ListagemProdutoPresenter implements IProdutoObservador {
 
     private void configuraView() {
 
-        this.viewListagem.setVisible(false);
+        this.viewBuscar.setVisible(false);
 
         produtoCollection.adicionarObservador(this);
 
-        this.viewListagem.getBtnRemover().setEnabled(false);
+        this.viewBuscar.getBtnVisualizar().setEnabled(false);
 
         configuraListeners();
 
-        viewListagem.setLocationRelativeTo(null);
+        viewBuscar.setLocationRelativeTo(null);
 
         atualizar(produtoCollection);
 
-        this.viewListagem.setVisible(true);
+        this.viewBuscar.setVisible(true);
 
     }
 
     private void configuraListeners() {
-        this.viewListagem.getBtnRemover().addActionListener(e -> {
-            excluirProduto();
+
+        this.viewBuscar.getBtnNovo().addActionListener(e -> {
+            criarProduto();
         });
 
-        this.viewListagem.getTblProdutos().getSelectionModel().addListSelectionListener(event -> {
+        this.viewBuscar.getTblProdutos().getSelectionModel().addListSelectionListener(event -> {
             if (!event.getValueIsAdjusting()) {
-                int linhaSelecionada = this.viewListagem.getTblProdutos().getSelectedRow();
-                this.viewListagem.getBtnRemover().setEnabled(linhaSelecionada != -1);
+                int linhaSelecionada = this.viewBuscar.getTblProdutos().getSelectedRow();
+                this.viewBuscar.getBtnVisualizar().setEnabled(linhaSelecionada != -1);
             }
         });
 
-        this.viewListagem.getBtnLimparSelecao().addActionListener(event -> {
-            this.viewListagem.getTblProdutos().clearSelection();
+        this.viewBuscar.getBtnVisualizar().addActionListener(e -> {
+            
+            int linhaSelecionada = this.viewBuscar.getTblProdutos().getSelectedRow();
+
+            if (linhaSelecionada != -1) {
+
+                int confirmacao = JOptionPane.showConfirmDialog(
+                        this.viewBuscar,
+                        "Deseja visualizar o produto selecionado?",
+                        "Confirmação",
+                        JOptionPane.YES_NO_OPTION
+                );
+
+                if (confirmacao == JOptionPane.YES_OPTION) {
+                    Produto produto = produtoCollection.getProdutos().get(linhaSelecionada);
+                }
+            }
+
         });
 
-    }
-
-    private void excluirProduto() {
-
-        int linhaSelecionada = this.viewListagem.getTblProdutos().getSelectedRow();
-
-        if (linhaSelecionada != -1) {
-
-            int confirmacao = JOptionPane.showConfirmDialog(
-                    this.viewListagem,
-                    "Deseja remover o produto selecionado?",
-                    "Confirmação",
-                    JOptionPane.YES_NO_OPTION
-            );
-
-            if (confirmacao == JOptionPane.YES_OPTION) {
-                Produto produto = produtoCollection.getProdutos().get(linhaSelecionada);
-                produtoCollection.removerProduto(produto);
-                gerenciadorProduto.deletarProdutoPorID(produto.getIdProduto());
-                JOptionPane.showMessageDialog(viewListagem, "Produto excluido com sucesso");
-            }
-        }
+        // this.viewBuscar.getBtnLimparSelecao().addActionListener(event -> {
+        //   this.viewListagem.getTblProdutos().clearSelection();
+        //   });
+        this.viewBuscar.getBtnFechar().addActionListener(e -> {
+            fechar();
+        });
 
     }
 
@@ -100,7 +101,7 @@ public final class ListagemProdutoPresenter implements IProdutoObservador {
 
         String[] colunas = {"ID", "Nome", "Preço de Custo", "Percentual de Lucro", "Preço de Venda"};
 
-        this.viewListagem.getTblProdutos().setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 12));
+        this.viewBuscar.getTblProdutos().setFont(new java.awt.Font("Monospaced", java.awt.Font.PLAIN, 12));
 
         Object[][] dados = new Object[produtosCadastrados.size()][colunas.length];
 
@@ -120,9 +121,17 @@ public final class ListagemProdutoPresenter implements IProdutoObservador {
             }
         };
 
-        viewListagem.getTblProdutos().setModel(tableModel);
+        viewBuscar.getTblProdutos().setModel(tableModel);
 
-        viewListagem.getTblProdutos().setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        viewBuscar.getTblProdutos().setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+    }
+
+    private void criarProduto() {
+        new ProdutoPresenter(produtoCollection, gerenciadorProduto);
+    }
+
+    private void fechar() {
+        this.viewBuscar.dispose();
     }
 
     @Override

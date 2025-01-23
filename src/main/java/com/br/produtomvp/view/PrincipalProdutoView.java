@@ -21,8 +21,8 @@ public final class PrincipalProdutoView extends javax.swing.JFrame {
         return mnuItemIncluir;
     }
 
-    public JMenuItem getMnuItemListarProdutos() {
-        return mnuItemListarProdutos;
+    public JMenuItem getMnuItemBuscarProdutos() {
+        return mnuItemBuscarProdutos;
     } 
 
     public JLabel getLblQuantidadeProdutos() {
@@ -55,7 +55,7 @@ public final class PrincipalProdutoView extends javax.swing.JFrame {
         mnuBarProduto = new javax.swing.JMenuBar();
         mnuProduto = new javax.swing.JMenu();
         mnuItemIncluir = new javax.swing.JMenuItem();
-        mnuItemListarProdutos = new javax.swing.JMenuItem();
+        mnuItemBuscarProdutos = new javax.swing.JMenuItem();
         mnuGerenciarLog = new javax.swing.JMenu();
         mnuRadioJSON = new javax.swing.JRadioButtonMenuItem();
         mnuRadioXML = new javax.swing.JRadioButtonMenuItem();
@@ -80,9 +80,9 @@ public final class PrincipalProdutoView extends javax.swing.JFrame {
         mnuItemIncluir.setText("Incluir");
         mnuProduto.add(mnuItemIncluir);
 
-        mnuItemListarProdutos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        mnuItemListarProdutos.setText("Listar");
-        mnuProduto.add(mnuItemListarProdutos);
+        mnuItemBuscarProdutos.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        mnuItemBuscarProdutos.setText("Buscar");
+        mnuProduto.add(mnuItemBuscarProdutos);
 
         mnuBarProduto.add(mnuProduto);
 
@@ -135,8 +135,8 @@ public final class PrincipalProdutoView extends javax.swing.JFrame {
     private javax.swing.JMenuBar mnuBarProduto;
     private javax.swing.JMenu mnuDB;
     private javax.swing.JMenu mnuGerenciarLog;
+    private javax.swing.JMenuItem mnuItemBuscarProdutos;
     private javax.swing.JMenuItem mnuItemIncluir;
-    private javax.swing.JMenuItem mnuItemListarProdutos;
     private javax.swing.JMenu mnuProduto;
     private javax.swing.JRadioButtonMenuItem mnuRadioJSON;
     private javax.swing.JRadioButtonMenuItem mnuRadioSQLite;

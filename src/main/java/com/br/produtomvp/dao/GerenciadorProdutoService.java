@@ -2,7 +2,6 @@ package com.br.produtomvp.dao;
 
 import com.br.produtomvp.model.Produto;
 import java.util.List;
-import java.util.UUID;
 
 /**
  *
