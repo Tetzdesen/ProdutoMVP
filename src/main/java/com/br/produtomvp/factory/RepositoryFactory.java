@@ -1,31 +1,31 @@
 package com.br.produtomvp.factory;
 
-import com.br.produtomvp.dao.ProdutoDAO;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import com.br.produtomvp.repository.ProdutoRepository;
 
 /**
  *
  * @author tetzner
  */
-public abstract class DAOFactory {
+public abstract class RepositoryFactory {
     private static final Map<String, String> classMap = Map.of(
-        "SQLite", "com.br.produtomvp.factory.SQLiteDAOFactory"
+        "SQLite", "com.br.produtomvp.factory.SQLiteRepositoryFactory"
     );
-    public abstract ProdutoDAO getProdutoDAO();
+    public abstract ProdutoRepository getProdutoRepository();
     
-    public static DAOFactory getDAOFactory(String nomeClasseSGBD){
-        DAOFactory daoFactory = null;
+    public static RepositoryFactory getRepositoryFactory(String nomeClasseSGBD){
+        RepositoryFactory daoFactory = null;
         String classeDB = classMap.get(nomeClasseSGBD);
         System.out.println(classeDB);
         try {
             Class<?> nomeClasse = Class.forName(classeDB);
             var construtor = nomeClasse.getConstructor();
-            daoFactory = (DAOFactory) construtor.newInstance();
+            daoFactory = (RepositoryFactory) construtor.newInstance();
         } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
-            Logger.getLogger(DAOFactory   .class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RepositoryFactory   .class.getName()).log(Level.SEVERE, null, ex);
         }
         return daoFactory;
     }
