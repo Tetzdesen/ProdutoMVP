@@ -113,6 +113,7 @@ public class ProdutoRepositorySQLite implements ProdutoRepository {
             stmt.setDouble(2, produto.getPrecoCusto());
             stmt.setDouble(3, produto.getPercentualLucro());
             stmt.setDouble(4, produto.getPrecoVenda());
+            stmt.setInt(5, produto.getIdProduto());
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao atualizar produto: " + e.getMessage());
