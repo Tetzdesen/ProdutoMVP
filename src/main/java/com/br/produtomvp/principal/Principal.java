@@ -30,6 +30,7 @@ public class Principal {
         ProdutoRepository produtoRepository = daoFactory.getProdutoRepository();
         GerenciadorRepositoryProdutoService repositoryProdutoService = new GerenciadorRepositoryProdutoService(produtoRepository);
         System.out.println(produtoRepository.buscarTodosProdutos());
+        System.out.println(produtoRepository.obterQuantidadeTotalDeProdutos());
         new PrincipalProdutoPresenter(repositoryProdutoService);
         
     }

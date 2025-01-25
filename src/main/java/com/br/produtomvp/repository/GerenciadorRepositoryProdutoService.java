@@ -46,7 +46,11 @@ public class GerenciadorRepositoryProdutoService {
         produtoRepository.deletarProdutoPorID(id);
         notificarObservadores();
     }
-
+    
+    public int obterQuantidadeTotalDeProdutos() {
+        return produtoRepository.obterQuantidadeTotalDeProdutos();
+    }
+     
     public void adicionarObservador(IProdutoObservador observer) {
         if (observer == null) {
             throw new IllegalArgumentException(" Observer é nulo ");
