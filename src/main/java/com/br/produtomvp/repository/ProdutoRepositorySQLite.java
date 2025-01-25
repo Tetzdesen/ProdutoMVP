@@ -3,7 +3,6 @@ package com.br.produtomvp.repository;
 import com.br.produtomvp.model.Produto;
 import com.br.produtomvp.singleton.SQLiteConnectionSingleton;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +10,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 /**
  *
  * @author tetzner
@@ -151,6 +149,17 @@ public class ProdutoRepositorySQLite implements ProdutoRepository {
             }
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao buscar produto pelo nome" + e.getMessage());
+        }
+    }
+
+    @Override
+    public int obterQuantidadeTotalDeProdutos() {
+        String sql = "SELECT COUNT(idProduto) AS totalProdutos FROM produto";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            ResultSet rs = stmt.executeQuery();
+            return rs.getInt("totalProdutos");
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao obter a quantidade total de produtos: " + e.getMessage());
         }
     }
 

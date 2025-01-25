@@ -15,4 +15,5 @@ public interface ProdutoRepository {
     List<Produto> buscarTodosProdutos();
     void atualizarProduto(Produto produto);
     void deletarProdutoPorID(int id);
+    int obterQuantidadeTotalDeProdutos();
 }
