@@ -14,14 +14,14 @@ import javax.swing.JOptionPane;
  * @author tetzner
  */
 public class EdicaoState extends ProdutoPresenterState {
-    
+
     public EdicaoState(ProdutoPresenter presenter) {
         super(presenter);
         configurarView();
     }
-    
-      private void configurarView() {
- 
+
+    private void configurarView() {
+
         presenter.getViewInclusao().getBtnSalvar().addActionListener((ActionEvent e) -> {
             try {
                 salvar();
@@ -35,24 +35,26 @@ public class EdicaoState extends ProdutoPresenterState {
         });
         preencherCampos();
         habilitarComponentes();
-        
+
     }
-    
+
     @Override
     public void salvar() {
-          try {
+        try {
+
             String nome = presenter.getViewInclusao().getTxtNome().getText();
             double precoCusto = Double.parseDouble(presenter.getViewInclusao().getTxtPrecoCusto().getText());
             double percentualLucro = Double.parseDouble(presenter.getViewInclusao().getTxtPercentualLucro().getText());
             verificarCampos(nome, precoCusto, percentualLucro);
             Produto produto = new Produto(nome, precoCusto, percentualLucro);
-           // presenter.getGerenciadorRepositoryProdutoService().adicionarProduto(produto);
-           presenter.getGerenciadorRepositoryProdutoService().atualizarProduto(produto);
-            presenter.getViewInclusao().getTxtPrecoVenda().setText(String.valueOf(produto.getPrecoVenda()));     
-            JOptionPane.showMessageDialog(presenter.getViewInclusao(), "Produto incluido com sucesso");
-           // limparCampos();
+            produto.setIdProduto(presenter.getProduto().getIdProduto());
+            presenter.getGerenciadorRepositoryProdutoService().atualizarProduto(produto);
+            presenter.getViewInclusao().getTxtPrecoVenda().setText(String.valueOf(produto.getPrecoVenda()));
+
+            JOptionPane.showMessageDialog(presenter.getViewInclusao(), "Produto editado com sucesso");
+            // limparCampos();
             presenter.setProduto(produto);
-            presenter.setState(new VisualizacaoState(presenter));      
+            presenter.setState(new VisualizacaoState(presenter));
             //new VisualizacaoProdutoPresenter(produtoCollection, gerenciadorProduto).exibirProduto(produto);
         } catch (NumberFormatException erroDeDados) {
             JOptionPane.showMessageDialog(presenter.getViewInclusao(), "Favor informar dados válidos!" + erroDeDados);
@@ -60,8 +62,8 @@ public class EdicaoState extends ProdutoPresenterState {
         } catch (IllegalArgumentException erro) {
             JOptionPane.showMessageDialog(presenter.getViewInclusao(), erro.getMessage());
         }
-    } 
-    
+    }
+
     @Override
     public void cancelar() {
         presenter.getViewInclusao().dispose();
@@ -79,7 +81,7 @@ public class EdicaoState extends ProdutoPresenterState {
         }
     }
 
-    private void habilitarComponentes(){
+    private void habilitarComponentes() {
         presenter.getViewInclusao().getBtnSalvar().setEnabled(true);
         presenter.getViewInclusao().getBtnCancelar().setEnabled(true);
         presenter.getViewInclusao().getBtnEditar().setEnabled(false);
@@ -88,15 +90,19 @@ public class EdicaoState extends ProdutoPresenterState {
         presenter.getViewInclusao().getTxtPrecoCusto().setEnabled(true);
         presenter.getViewInclusao().getTxtPercentualLucro().setEnabled(true);
         presenter.getViewInclusao().getTxtPrecoVenda().setEnabled(true);
+        presenter.getViewInclusao().getTxtNome().setEditable(true);
+        presenter.getViewInclusao().getTxtPrecoCusto().setEditable(true);
+        presenter.getViewInclusao().getTxtPercentualLucro().setEditable(true);
+        presenter.getViewInclusao().getTxtPrecoVenda().setEditable(true);
     }
-    
-    private void preencherCampos(){
+
+    private void preencherCampos() {
         presenter.getViewInclusao().getTxtNome().setText(presenter.getProduto().getNome());
         presenter.getViewInclusao().getTxtPrecoCusto().setText(String.valueOf(presenter.getProduto().getPrecoCusto()));
         presenter.getViewInclusao().getTxtPercentualLucro().setText(String.valueOf(presenter.getProduto().getPercentualLucro()));
         presenter.getViewInclusao().getTxtPrecoVenda().setText(String.valueOf(presenter.getProduto().getPrecoVenda()));
     }
-    
+
     private void limparCampos() {
         presenter.getViewInclusao().getTxtNome().setText("");
         presenter.getViewInclusao().getTxtPrecoCusto().setText("");
@@ -107,5 +113,5 @@ public class EdicaoState extends ProdutoPresenterState {
     @Override
     public String toString() {
         return "Edição";
-     }
+    }
 }

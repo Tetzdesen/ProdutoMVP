@@ -17,7 +17,7 @@ public abstract class ProdutoPresenterState {
 
     public ProdutoPresenterState(ProdutoPresenter presenter) {
         this.presenter = presenter;
-       // removeListeners();
+        removeListeners();
     }
 
     public void salvar() {
@@ -38,9 +38,25 @@ public abstract class ProdutoPresenterState {
 
     private void removeListeners() {
 
-        ActionListener listeners[] = presenter.getViewInclusao().getBtnSalvar().getActionListeners();
-        for (ActionListener listener : listeners) {
+        ActionListener listenersBtnSalvar[] = presenter.getViewInclusao().getBtnSalvar().getActionListeners();
+        ActionListener listenersBtnExcluir[] = presenter.getViewInclusao().getBtnExcluir().getActionListeners();
+        ActionListener listenersBtnEditar[] = presenter.getViewInclusao().getBtnEditar().getActionListeners();
+        ActionListener listenersBtnCancelar[] = presenter.getViewInclusao().getBtnCancelar().getActionListeners();
+        
+        for (ActionListener listener : listenersBtnSalvar) {
             presenter.getViewInclusao().getBtnSalvar().removeActionListener(listener);
+        }
+        
+        for (ActionListener listener : listenersBtnExcluir) {
+            presenter.getViewInclusao().getBtnExcluir().removeActionListener(listener);
+        }
+         
+        for (ActionListener listener : listenersBtnEditar) {
+            presenter.getViewInclusao().getBtnEditar().removeActionListener(listener);
+        }
+        
+        for (ActionListener listener : listenersBtnCancelar) {
+            presenter.getViewInclusao().getBtnCancelar().removeActionListener(listener);
         }
     }
 }

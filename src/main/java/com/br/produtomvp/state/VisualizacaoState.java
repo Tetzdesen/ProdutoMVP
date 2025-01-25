@@ -16,17 +16,42 @@ public class VisualizacaoState extends ProdutoPresenterState {
 
     public VisualizacaoState(ProdutoPresenter presenter) {
         super(presenter);
-        configurarView();   
+        configurarView();
     }
-    
-    private void configurarView() {     
-        habilitarComponentes();     
+
+    private void configurarView() {
+        presenter.getViewInclusao().getBtnExcluir().addActionListener((ActionEvent e) -> {
+            try {
+                excluir();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(presenter.getViewInclusao(), ex.getMessage());
+            }
+        });
+
+        presenter.getViewInclusao().getBtnEditar().addActionListener((ActionEvent e) -> {
+            editar();
+        });
+        
+         presenter.getViewInclusao().getBtnCancelar().addActionListener((ActionEvent e) -> {
+            fechar();
+        });
+        
+        habilitarComponentes();
     }
-    
-    private void habilitarComponentes(){
+
+    private void habilitarComponentes() {
         presenter.getViewInclusao().getBtnEditar().setEnabled(true);
         presenter.getViewInclusao().getBtnExcluir().setEnabled(true);
+        presenter.getViewInclusao().getBtnSalvar().setEnabled(false);
         presenter.getViewInclusao().getBtnCancelar().setEnabled(true);
+        presenter.getViewInclusao().getTxtNome().setEnabled(true);
+        presenter.getViewInclusao().getTxtPrecoCusto().setEnabled(true);
+        presenter.getViewInclusao().getTxtPercentualLucro().setEnabled(true);
+        presenter.getViewInclusao().getTxtPrecoVenda().setEnabled(true);
+        presenter.getViewInclusao().getTxtNome().setEditable(false);
+        presenter.getViewInclusao().getTxtPrecoCusto().setEditable(false);
+        presenter.getViewInclusao().getTxtPercentualLucro().setEditable(false);
+        presenter.getViewInclusao().getTxtPrecoVenda().setEditable(false);
     }
 
     @Override
@@ -54,6 +79,11 @@ public class VisualizacaoState extends ProdutoPresenterState {
 
     public void fechar() {
         presenter.getViewInclusao().dispose();
+    }
+
+    @Override
+    public String toString() {
+        return "Visualização";
     }
 
 }
