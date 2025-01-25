@@ -1,33 +1,68 @@
-package com.br.produtomvp.dao;
+package com.br.produtomvp.repository;
 
 import com.br.produtomvp.model.Produto;
+import com.br.produtomvp.observer.IProdutoObservador;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  *
  * @author tetzner
  */
-public class GerenciadorProdutoService {
-    private final ProdutoDAO produtoDAO;
+public class GerenciadorRepositoryProdutoService {
 
-    public GerenciadorProdutoService(ProdutoDAO produtoDAO) {
-        this.produtoDAO = produtoDAO;
+    private final ProdutoRepository produtoRepository;
+    private final List<IProdutoObservador> observadores;
+
+    public GerenciadorRepositoryProdutoService(ProdutoRepository produtoRepository) {
+        this.produtoRepository = produtoRepository;
+        this.observadores = new ArrayList<>();
+    }
+
+    public void adicionarProduto(Produto produto) {
+        produtoRepository.criarProduto(produto);
+        notificarObservadores();
+    }
+
+    public List<Produto> buscarProdutos() {
+        return produtoRepository.buscarTodosProdutos();
+    }
+
+    public void atualizarProduto(Produto produto) {
+        produtoRepository.atualizarProduto(produto);
+    }
+   
+    public Optional<Produto> buscarProdutoPorID(int id){
+        return produtoRepository.buscarProdutoPorID(id);
     }
     
-    public void adicionarProduto(Produto produto){
-        produtoDAO.criarProduto(produto);
+    public Optional<Produto> buscarProdutoPorNome(String nome){
+        return produtoRepository.buscarProdutoPorNome(nome);
     }
-    
-    public List<Produto> buscarProdutos(){
-        return produtoDAO.buscarTodosProdutos();
+
+    public void deletarProdutoPorID(int id) {
+        produtoRepository.deletarProdutoPorID(id);
     }
-    
-    public void atualizarProduto(Produto produto){
-        produtoDAO.atualizarProduto(produto);
+
+    public void adicionarObservador(IProdutoObservador observer) {
+        if (observer == null) {
+            throw new IllegalArgumentException(" Observer é nulo ");
+        }
+        observadores.add(observer);
     }
-    
-    public void deletarProdutoPorID(int id){
-        produtoDAO.deletarProdutoPorID(id);
+
+    public void removerObservador(IProdutoObservador observer) {
+        if (observer == null) {
+            throw new IllegalArgumentException(" Observer é nulo ");
+        }
+        observadores.remove(observer);
     }
-        
+
+    private void notificarObservadores() {
+        for (IProdutoObservador observador : observadores) {
+            observador.atualizar(this);
+        }
+    }
+
 }

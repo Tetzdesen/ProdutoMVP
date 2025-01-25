@@ -16,12 +16,20 @@ public final class ProdutoView extends javax.swing.JFrame {
         initComponents();
     }
 
-    public JButton getBtnCancelar() {
-        return btnCancelar;
+    public JButton getBtnSalvar() {
+        return btnSalvar;
+    }
+    
+    public JButton getBtnExcluir() {
+        return btnExcluir;
     }
 
-    public JButton getBtnIncluir() {
-        return btnIncluir;
+    public JButton getBtnEditar() {
+        return btnEditar;
+    }
+
+    public JButton getBtnCancelar() {
+        return btnCancelar;
     }
 
     public JTextField getTxtNome() {
@@ -57,10 +65,10 @@ public final class ProdutoView extends javax.swing.JFrame {
         txtPrecoCusto = new javax.swing.JTextField();
         txtPercentualLucro = new javax.swing.JTextField();
         txtPrecoVenda = new javax.swing.JTextField();
-        btnIncluir = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
+        btnExcluir = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        btnIncluir3 = new javax.swing.JButton();
-        btnIncluir4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Inclusão de Produtos");
@@ -82,28 +90,28 @@ public final class ProdutoView extends javax.swing.JFrame {
         txtPrecoVenda.setEditable(false);
         txtPrecoVenda.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
 
-        btnIncluir.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnIncluir.setText("Salvar");
-        btnIncluir.setToolTipText("");
-        btnIncluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnIncluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnSalvar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnSalvar.setText("Salvar");
+        btnSalvar.setToolTipText("");
+        btnSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnSalvar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        btnExcluir.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnExcluir.setText("Excluir");
+        btnExcluir.setToolTipText("");
+        btnExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+
+        btnEditar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+        btnEditar.setText("Editar");
+        btnEditar.setToolTipText("");
+        btnEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         btnCancelar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnCancelar.setText("Fechar");
         btnCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
-        btnIncluir3.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnIncluir3.setText("Editar");
-        btnIncluir3.setToolTipText("");
-        btnIncluir3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnIncluir3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-
-        btnIncluir4.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
-        btnIncluir4.setText("Excluir");
-        btnIncluir4.setToolTipText("");
-        btnIncluir4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnIncluir4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -122,15 +130,15 @@ public final class ProdutoView extends javax.swing.JFrame {
                             .addComponent(txtPrecoCusto)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnIncluir, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblPercentualLucro, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblPrecoVenda, javax.swing.GroupLayout.Alignment.LEADING))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                                .addComponent(btnIncluir4, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(33, 33, 33)
-                                .addComponent(btnIncluir3, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(38, 38, 38)
                                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(9, 9, 9))
@@ -166,9 +174,9 @@ public final class ProdutoView extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCancelar)
-                    .addComponent(btnIncluir)
-                    .addComponent(btnIncluir3)
-                    .addComponent(btnIncluir4))
+                    .addComponent(btnSalvar)
+                    .addComponent(btnEditar)
+                    .addComponent(btnExcluir))
                 .addContainerGap())
         );
 
@@ -178,9 +186,9 @@ public final class ProdutoView extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnIncluir;
-    private javax.swing.JButton btnIncluir3;
-    private javax.swing.JButton btnIncluir4;
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JButton btnExcluir;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblPercentualLucro;
     private javax.swing.JLabel lblPrecoCusto;

@@ -1,17 +1,17 @@
 package com.br.produtomvp.factory;
 
-import com.br.produtomvp.dao.ProdutoDAO;
-import com.br.produtomvp.dao.ProdutoDAOSQLite;
+import com.br.produtomvp.repository.ProdutoRepositorySQLite;
+import com.br.produtomvp.repository.ProdutoRepository;
 
 /**
  *
  * @author tetzner
  */
-public class SQLiteDAOFactory extends DAOFactory{
+public class SQLiteRepositoryFactory extends RepositoryFactory{
 
     @Override
-    public ProdutoDAO getProdutoDAO() {
-        return new ProdutoDAOSQLite();
+    public ProdutoRepository getProdutoRepository() {
+        return new ProdutoRepositorySQLite();
     }
     
 }

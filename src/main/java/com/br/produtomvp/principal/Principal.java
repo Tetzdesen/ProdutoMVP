@@ -1,14 +1,13 @@
 package com.br.produtomvp.principal;
 
-import com.br.produtomvp.collection.ProdutoCollection;
-import com.br.produtomvp.dao.ProdutoDAO;
-import com.br.produtomvp.dao.ProdutoDAOSQLite;
-import com.br.produtomvp.factory.DAOFactory;
+import com.br.produtomvp.factory.RepositoryFactory;
 import com.br.produtomvp.presenter.PrincipalProdutoPresenter;
+import com.br.produtomvp.repository.GerenciadorRepositoryProdutoService;
 import io.github.cdimascio.dotenv.Dotenv;
 import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import com.br.produtomvp.repository.ProdutoRepository;
 
 /**
  *
@@ -27,10 +26,11 @@ public class Principal {
                 .load();
 
         String SGBD = dotenv.get("DB");
-        DAOFactory daoFactory = DAOFactory.getDAOFactory(SGBD);
-        ProdutoDAO produtoDAO = daoFactory.getProdutoDAO();
-        System.out.println(produtoDAO.buscarTodosProdutos());
-        new PrincipalProdutoPresenter(produtoDAO);
+        RepositoryFactory daoFactory = RepositoryFactory.getRepositoryFactory(SGBD);
+        ProdutoRepository produtoRepository = daoFactory.getProdutoRepository();
+        GerenciadorRepositoryProdutoService repositoryProdutoService = new GerenciadorRepositoryProdutoService(produtoRepository);
+        System.out.println(produtoRepository.buscarTodosProdutos());
+        new PrincipalProdutoPresenter(repositoryProdutoService);
         
     }
 

@@ -1,14 +1,10 @@
 package com.br.produtomvp.presenter;
 
-import com.br.produtomvp.collection.ProdutoCollection;
-import com.br.produtomvp.dao.GerenciadorProdutoService;
-import com.br.produtomvp.dao.ProdutoDAO;
-import com.br.produtomvp.model.Produto;
+import com.br.produtomvp.repository.GerenciadorRepositoryProdutoService;
 import com.br.produtomvp.view.PrincipalProdutoView;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
 import com.br.produtomvp.observer.IProdutoObservador;
-import java.util.List;
 
 /**
  *
@@ -17,20 +13,17 @@ import java.util.List;
 public final class PrincipalProdutoPresenter implements IProdutoObservador {
 
     private final PrincipalProdutoView viewPrincipal;
-    private final ProdutoCollection produtoCollection;
-    private final GerenciadorProdutoService gerenciadorProduto;
+    private final GerenciadorRepositoryProdutoService gerenciadorRepositoryProdutoService;
     
-    public PrincipalProdutoPresenter(ProdutoDAO produtoDAO) {
+    public PrincipalProdutoPresenter(GerenciadorRepositoryProdutoService gerenciadorRepositoryProdutoService) {
         this.viewPrincipal = new PrincipalProdutoView();
-        this.produtoCollection = new ProdutoCollection();
-        this.gerenciadorProduto = new GerenciadorProdutoService(produtoDAO);        
+        this.gerenciadorRepositoryProdutoService = gerenciadorRepositoryProdutoService;
         configuraObserver();
-        copiarDadosProdutosParaCollection();
         configuraView();
     }
 
     private void configuraObserver() {
-        this.produtoCollection.adicionarObservador(this);
+        this.gerenciadorRepositoryProdutoService.adicionarObservador(this);
     }
 
     private void configuraView() {
@@ -43,7 +36,7 @@ public final class PrincipalProdutoPresenter implements IProdutoObservador {
     private void configuraListeners() {
         this.viewPrincipal.getMnuItemIncluir().addActionListener((ActionEvent e) -> {
             try {
-                new ProdutoPresenter(produtoCollection, gerenciadorProduto);
+                new ProdutoPresenter(null, gerenciadorRepositoryProdutoService);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
@@ -51,23 +44,17 @@ public final class PrincipalProdutoPresenter implements IProdutoObservador {
 
         this.viewPrincipal.getMnuItemBuscarProdutos().addActionListener((ActionEvent e) -> {
             try {
-                new BuscarProdutoPresenter(produtoCollection, gerenciadorProduto);
+                new BuscarProdutoPresenter(gerenciadorRepositoryProdutoService);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         });
 
     }
-    
-    private void copiarDadosProdutosParaCollection(){
-        List<Produto> produtos = gerenciadorProduto.buscarProdutos();
-        
-        for(int i = 0; i < produtos.size(); i++) produtoCollection.adicionarProduto(produtos.get(i));
-    }
-
+   
     @Override
-    public void atualizar(ProdutoCollection produtoCollection) {
-        this.viewPrincipal.getLblQuantidadeProdutos().setText(String.valueOf(produtoCollection.obterQuantidadeDeProdutos()));
+    public void atualizar(GerenciadorRepositoryProdutoService gerenciadorRepositoryProdutoService) {
+        this.viewPrincipal.getLblQuantidadeProdutos().setText(String.valueOf(1));//gerenciadorRepositoryProdutoService.obterQuantidadeDeProdutos()));
     }
 
 }

@@ -1,7 +1,6 @@
 package com.br.produtomvp.presenter;
 
-import com.br.produtomvp.collection.ProdutoCollection;
-import com.br.produtomvp.dao.GerenciadorProdutoService;
+import com.br.produtomvp.repository.GerenciadorRepositoryProdutoService;
 import com.br.produtomvp.model.Produto;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -17,30 +16,28 @@ import com.br.produtomvp.view.BuscarProdutoView;
 public final class BuscarProdutoPresenter implements IProdutoObservador {
 
     private final BuscarProdutoView viewBuscar;
-    private final ProdutoCollection produtoCollection;
-    private final GerenciadorProdutoService gerenciadorProduto;
+    private final GerenciadorRepositoryProdutoService gerenciadorRepositoryProdutoService;
 
-    public BuscarProdutoPresenter(ProdutoCollection produtoCollection, GerenciadorProdutoService gerenciadorProduto) {
-        if (produtoCollection == null) {
+    public BuscarProdutoPresenter(GerenciadorRepositoryProdutoService gerenciadorRepositoryProdutoService) {
+        if (gerenciadorRepositoryProdutoService == null) {
             throw new IllegalArgumentException("Produto Collection é nulo/invalido ");
         }
         this.viewBuscar = new BuscarProdutoView();
-        this.produtoCollection = produtoCollection;
-        this.gerenciadorProduto = gerenciadorProduto;
+        this.gerenciadorRepositoryProdutoService = gerenciadorRepositoryProdutoService;
         configuraObserver();
         configuraView();
 
     }
 
     private void configuraObserver() {
-        this.produtoCollection.adicionarObservador(this);
+        this.gerenciadorRepositoryProdutoService.adicionarObservador(this);
     }
 
     private void configuraView() {
 
         this.viewBuscar.setVisible(false);
 
-        produtoCollection.adicionarObservador(this);
+        gerenciadorRepositoryProdutoService.adicionarObservador(this);
 
         this.viewBuscar.getBtnVisualizar().setEnabled(false);
 
@@ -48,14 +45,14 @@ public final class BuscarProdutoPresenter implements IProdutoObservador {
 
         viewBuscar.setLocationRelativeTo(null);
 
-        atualizar(produtoCollection);
+        atualizar(gerenciadorRepositoryProdutoService);
 
         this.viewBuscar.setVisible(true);
 
     }
 
     private void configuraListeners() {
-
+        
         this.viewBuscar.getBtnNovo().addActionListener(e -> {
             criarProduto();
         });
@@ -68,7 +65,7 @@ public final class BuscarProdutoPresenter implements IProdutoObservador {
         });
 
         this.viewBuscar.getBtnVisualizar().addActionListener(e -> {
-            
+            List<Produto> produtosCadastrados = gerenciadorRepositoryProdutoService.buscarProdutos();
             int linhaSelecionada = this.viewBuscar.getTblProdutos().getSelectedRow();
 
             if (linhaSelecionada != -1) {
@@ -81,7 +78,8 @@ public final class BuscarProdutoPresenter implements IProdutoObservador {
                 );
 
                 if (confirmacao == JOptionPane.YES_OPTION) {
-                    Produto produto = produtoCollection.getProdutos().get(linhaSelecionada);
+                    Produto produto = produtosCadastrados.get(linhaSelecionada);
+                    new ProdutoPresenter(produto, gerenciadorRepositoryProdutoService);
                 }
             }
 
@@ -97,7 +95,7 @@ public final class BuscarProdutoPresenter implements IProdutoObservador {
     }
 
     private void listarProdutos() {
-        List<Produto> produtosCadastrados = produtoCollection.getProdutos();
+        List<Produto> produtosCadastrados = gerenciadorRepositoryProdutoService.buscarProdutos();
 
         String[] colunas = {"ID", "Nome", "Preço de Custo", "Percentual de Lucro", "Preço de Venda"};
 
@@ -127,7 +125,7 @@ public final class BuscarProdutoPresenter implements IProdutoObservador {
     }
 
     private void criarProduto() {
-        new ProdutoPresenter(produtoCollection, gerenciadorProduto);
+        new ProdutoPresenter(null, gerenciadorRepositoryProdutoService);
     }
 
     private void fechar() {
@@ -135,7 +133,7 @@ public final class BuscarProdutoPresenter implements IProdutoObservador {
     }
 
     @Override
-    public void atualizar(ProdutoCollection produtoCollection) {
+    public void atualizar(GerenciadorRepositoryProdutoService gerenciadorRepositoryProdutoService) {
         listarProdutos();
     }
 }

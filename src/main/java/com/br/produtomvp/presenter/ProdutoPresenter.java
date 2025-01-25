@@ -1,7 +1,6 @@
 package com.br.produtomvp.presenter;
 
-import com.br.produtomvp.collection.ProdutoCollection;
-import com.br.produtomvp.dao.GerenciadorProdutoService;
+import com.br.produtomvp.repository.GerenciadorRepositoryProdutoService;
 import com.br.produtomvp.model.Produto;
 import com.br.produtomvp.view.ProdutoView;
 import java.awt.event.ActionEvent;
@@ -15,15 +14,13 @@ import javax.swing.JOptionPane;
 public final class ProdutoPresenter {
 
     private final ProdutoView viewInclusao;
-    private final ProdutoCollection produtoCollection;
-    private final GerenciadorProdutoService gerenciadorProduto;
+    private final GerenciadorRepositoryProdutoService gerenciadorRepositoryProdutoService;
     
-    public ProdutoPresenter(ProdutoCollection produtoCollection, GerenciadorProdutoService gerenciadorProduto) {
-        if (produtoCollection == null) {
-            throw new IllegalArgumentException("Produto Collection é nulo/invalido ");
-        }
-        this.produtoCollection = produtoCollection;
-        this.gerenciadorProduto = gerenciadorProduto;
+    public ProdutoPresenter(Produto produto, GerenciadorRepositoryProdutoService gerenciadorRepositoryProdutoService) {
+      //  if (produto == null) {
+          //  throw new IllegalArgumentException("Produto Collection é nulo/invalido ");
+       // }
+        this.gerenciadorRepositoryProdutoService = gerenciadorRepositoryProdutoService;
         this.viewInclusao = new ProdutoView();
         configuraView();
     }
@@ -36,7 +33,7 @@ public final class ProdutoPresenter {
     }
 
     private void configurarListeners() {
-        this.viewInclusao.getBtnIncluir().addActionListener((ActionEvent e) -> {
+        this.viewInclusao.getBtnSalvar().addActionListener((ActionEvent e) -> {
             try {
                 salvar();
             } catch (Exception ex) {
@@ -57,8 +54,7 @@ public final class ProdutoPresenter {
             double percentualLucro = Double.parseDouble(viewInclusao.getTxtPercentualLucro().getText());
             verificarCampos(nome, precoCusto, percentualLucro);
             Produto produto = new Produto(nome, precoCusto, percentualLucro);
-            produtoCollection.adicionarProduto(produto);
-            gerenciadorProduto.adicionarProduto(produto);
+            gerenciadorRepositoryProdutoService.adicionarProduto(produto);
             this.viewInclusao.getTxtPrecoVenda().setText(String.valueOf(produto.getPrecoVenda()));     
             JOptionPane.showMessageDialog(viewInclusao, "Produto incluido com sucesso");
             limparCampos();
@@ -95,4 +91,7 @@ public final class ProdutoPresenter {
         this.viewInclusao.getTxtPercentualLucro().setText("");
         this.viewInclusao.getTxtPrecoVenda().setText("");
     }
+    
+    
+    
 }
