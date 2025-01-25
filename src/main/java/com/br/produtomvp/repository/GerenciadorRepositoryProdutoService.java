@@ -31,6 +31,7 @@ public class GerenciadorRepositoryProdutoService {
 
     public void atualizarProduto(Produto produto) {
         produtoRepository.atualizarProduto(produto);
+        notificarObservadores();
     }
    
     public Optional<Produto> buscarProdutoPorID(int id){

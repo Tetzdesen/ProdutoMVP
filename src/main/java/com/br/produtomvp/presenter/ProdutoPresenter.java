@@ -2,6 +2,9 @@ package com.br.produtomvp.presenter;
 
 import com.br.produtomvp.repository.GerenciadorRepositoryProdutoService;
 import com.br.produtomvp.model.Produto;
+import com.br.produtomvp.state.InclusaoState;
+import com.br.produtomvp.state.ProdutoPresenterState;
+import com.br.produtomvp.state.VisualizacaoState;
 import com.br.produtomvp.view.ProdutoView;
 import java.awt.event.ActionEvent;
 import java.text.ParseException;
@@ -15,14 +18,22 @@ public final class ProdutoPresenter {
 
     private final ProdutoView viewInclusao;
     private final GerenciadorRepositoryProdutoService gerenciadorRepositoryProdutoService;
-    
+    private Produto produto;
+    private ProdutoPresenterState estado;
+
     public ProdutoPresenter(Produto produto, GerenciadorRepositoryProdutoService gerenciadorRepositoryProdutoService) {
-      //  if (produto == null) {
-          //  throw new IllegalArgumentException("Produto Collection é nulo/invalido ");
-       // }
+        this.produto = produto;
         this.gerenciadorRepositoryProdutoService = gerenciadorRepositoryProdutoService;
         this.viewInclusao = new ProdutoView();
         configuraView();
+        if (produto == null) {
+            this.estado = new InclusaoState(this);
+        } else {
+            this.produto = produto;
+            preencherCampos();
+            this.estado = new VisualizacaoState(this);
+        }
+
     }
 
     private void configuraView() {
@@ -32,8 +43,44 @@ public final class ProdutoPresenter {
         this.viewInclusao.setVisible(true);
     }
 
-    private void configurarListeners() {
-        this.viewInclusao.getBtnSalvar().addActionListener((ActionEvent e) -> {
+    public ProdutoView getViewInclusao() {
+        return viewInclusao;
+    }
+
+    public GerenciadorRepositoryProdutoService getGerenciadorRepositoryProdutoService() {
+        return gerenciadorRepositoryProdutoService;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public void setState(ProdutoPresenterState estado) {
+        this.estado = estado;
+    }
+
+    public void salvar() {
+        estado.salvar();
+    }
+
+    public void excluir() {
+        estado.excluir();
+    }
+
+    public void editar() {
+        estado.editar();
+    }
+
+    public void cancelar() {
+        estado.cancelar();
+    }
+
+    public void configurarListeners() {
+        viewInclusao.getBtnSalvar().addActionListener((ActionEvent e) -> {
             try {
                 salvar();
             } catch (Exception ex) {
@@ -41,57 +88,32 @@ public final class ProdutoPresenter {
             }
         });
 
-        this.viewInclusao.getBtnCancelar().addActionListener((ActionEvent e) -> {
+        viewInclusao.getBtnExcluir().addActionListener((ActionEvent e) -> {
+            try {
+                excluir();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(viewInclusao, ex.getMessage());
+            }
+        });
+
+        viewInclusao.getBtnEditar().addActionListener((ActionEvent e) -> {
+            try {
+                editar();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(viewInclusao, ex.getMessage());
+            }
+        });
+
+        viewInclusao.getBtnCancelar().addActionListener((ActionEvent e) -> {
             cancelar();
         });
     }
 
-    private void salvar() throws Exception {
-        
-        try {
-            String nome = viewInclusao.getTxtNome().getText();
-            double precoCusto = Double.parseDouble(viewInclusao.getTxtPrecoCusto().getText());
-            double percentualLucro = Double.parseDouble(viewInclusao.getTxtPercentualLucro().getText());
-            verificarCampos(nome, precoCusto, percentualLucro);
-            Produto produto = new Produto(nome, precoCusto, percentualLucro);
-            gerenciadorRepositoryProdutoService.adicionarProduto(produto);
-            this.viewInclusao.getTxtPrecoVenda().setText(String.valueOf(produto.getPrecoVenda()));     
-            JOptionPane.showMessageDialog(viewInclusao, "Produto incluido com sucesso");
-            limparCampos();
-            cancelar();
-            //new VisualizacaoProdutoPresenter(produtoCollection, gerenciadorProduto).exibirProduto(produto);
-        } catch (ParseException | NumberFormatException erroDeDados) {
-            JOptionPane.showMessageDialog(viewInclusao, "Favor informar dados válidos!" + erroDeDados);
-
-        } catch (IllegalArgumentException erro) {
-            JOptionPane.showMessageDialog(viewInclusao, erro.getMessage());
-        }
-
+    private void preencherCampos() {
+        viewInclusao.getTxtNome().setText(produto.getNome());
+        viewInclusao.getTxtPrecoCusto().setText(String.valueOf(produto.getPrecoCusto()));
+        viewInclusao.getTxtPercentualLucro().setText(String.valueOf(produto.getPercentualLucro()));
+        viewInclusao.getTxtPrecoVenda().setText(String.valueOf(produto.getPrecoVenda()));
     }
 
-    private void cancelar() {
-        viewInclusao.dispose();
-    }
-
-    private void verificarCampos(String nome, double precoCusto, double percentualLucro) throws Exception {
-        if (nome == null || nome.isEmpty()) {
-            throw new Exception("Nome do produto é obrigatório ");
-        }
-        if (precoCusto <= 0) {
-            throw new Exception("Preço de custo deve ser maior que zero ");
-        }
-        if (percentualLucro <= 0) {
-            throw new Exception("Percentual de lucro deve ser maior que zero ");
-        }
-    }
-
-    private void limparCampos() {
-        this.viewInclusao.getTxtNome().setText("");
-        this.viewInclusao.getTxtPrecoCusto().setText("");
-        this.viewInclusao.getTxtPercentualLucro().setText("");
-        this.viewInclusao.getTxtPrecoVenda().setText("");
-    }
-    
-    
-    
 }
