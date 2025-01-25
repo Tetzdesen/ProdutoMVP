@@ -71,7 +71,7 @@ public final class ProdutoView extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Inclusão de Produtos");
+        setTitle("Manter produto");
         setResizable(false);
 
         lblNome.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N

@@ -22,10 +22,8 @@ public final class ProdutoPresenter {
     private ProdutoPresenterState estado;
 
     public ProdutoPresenter(Produto produto, GerenciadorRepositoryProdutoService gerenciadorRepositoryProdutoService) {
-        this.produto = produto;
         this.gerenciadorRepositoryProdutoService = gerenciadorRepositoryProdutoService;
         this.viewInclusao = new ProdutoView();
-        configuraView();
         if (produto == null) {
             this.estado = new InclusaoState(this);
         } else {
@@ -33,12 +31,15 @@ public final class ProdutoPresenter {
             preencherCampos();
             this.estado = new VisualizacaoState(this);
         }
+        //   this.produto = produto;
+
+        configuraView();
 
     }
 
     private void configuraView() {
         this.viewInclusao.setVisible(false);
-        configurarListeners();
+        // configurarListeners();
         viewInclusao.setLocationRelativeTo(null);
         this.viewInclusao.setVisible(true);
     }
@@ -63,23 +64,7 @@ public final class ProdutoPresenter {
         this.estado = estado;
     }
 
-    public void salvar() {
-        estado.salvar();
-    }
-
-    public void excluir() {
-        estado.excluir();
-    }
-
-    public void editar() {
-        estado.editar();
-    }
-
-    public void cancelar() {
-        estado.cancelar();
-    }
-
-    public void configurarListeners() {
+   /* public void configurarListeners() {
         viewInclusao.getBtnSalvar().addActionListener((ActionEvent e) -> {
             try {
                 salvar();
@@ -107,7 +92,7 @@ public final class ProdutoPresenter {
         viewInclusao.getBtnCancelar().addActionListener((ActionEvent e) -> {
             cancelar();
         });
-    }
+    }*/
 
     private void preencherCampos() {
         viewInclusao.getTxtNome().setText(produto.getNome());

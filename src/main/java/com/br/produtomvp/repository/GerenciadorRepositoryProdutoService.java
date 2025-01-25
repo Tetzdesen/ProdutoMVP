@@ -44,6 +44,7 @@ public class GerenciadorRepositoryProdutoService {
 
     public void deletarProdutoPorID(int id) {
         produtoRepository.deletarProdutoPorID(id);
+        notificarObservadores();
     }
 
     public void adicionarObservador(IProdutoObservador observer) {

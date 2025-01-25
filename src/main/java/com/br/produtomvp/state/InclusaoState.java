@@ -23,6 +23,7 @@ public class InclusaoState extends ProdutoPresenterState {
 
     private void configurarView() {
  
+            
         presenter.getViewInclusao().getBtnSalvar().addActionListener((ActionEvent e) -> {
             try {
                 salvar();
@@ -33,7 +34,7 @@ public class InclusaoState extends ProdutoPresenterState {
 
         presenter.getViewInclusao().getBtnCancelar().addActionListener((ActionEvent e) -> {
             cancelar();
-        });
+        }); 
         habilitarComponentes();
         limparCampos();
         
