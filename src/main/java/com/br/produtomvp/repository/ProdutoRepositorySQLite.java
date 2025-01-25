@@ -107,7 +107,7 @@ public class ProdutoRepositorySQLite implements ProdutoRepository {
 
     @Override
     public void atualizarProduto(Produto produto) {
-        String sql = "UPDATE produto SET nome = ?, precoCusto = ?, percentualLucro = ?, precoVenda = ? WHERE id = ?";
+        String sql = "UPDATE produto SET nome = ?, precoCusto = ?, percentualLucro = ?, precoVenda = ? WHERE idProduto = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, produto.getNome());
             stmt.setDouble(2, produto.getPrecoCusto());
