@@ -29,6 +29,7 @@ public final class PrincipalProdutoPresenter implements IProdutoObservador {
     private void configuraView() {
         this.viewPrincipal.setVisible(false);
         configuraListeners();
+        atualizar(gerenciadorRepositoryProdutoService);
         this.viewPrincipal.setLocationRelativeTo(null);
         this.viewPrincipal.setVisible(true);
     }
@@ -54,7 +55,7 @@ public final class PrincipalProdutoPresenter implements IProdutoObservador {
    
     @Override
     public void atualizar(GerenciadorRepositoryProdutoService gerenciadorRepositoryProdutoService) {
-        this.viewPrincipal.getLblQuantidadeProdutos().setText(String.valueOf(1));//gerenciadorRepositoryProdutoService.obterQuantidadeDeProdutos()));
+        this.viewPrincipal.getLblQuantidadeProdutos().setText(String.valueOf(gerenciadorRepositoryProdutoService.obterQuantidadeTotalDeProdutos()));
     }
 
 }
