@@ -8,6 +8,7 @@ import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import com.br.produtomvp.repository.ProdutoRepository;
+import java.util.UUID;
 
 /**
  *
@@ -16,7 +17,7 @@ import com.br.produtomvp.repository.ProdutoRepository;
 public class Principal {
 
     public static void main(String[] args) {
-        
+        System.out.println(UUID.randomUUID());
         configurarLinguagem();
         configurarLookAndFeel();
         

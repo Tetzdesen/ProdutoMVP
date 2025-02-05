@@ -87,40 +87,29 @@ public final class ProdutoView extends javax.swing.JFrame {
         lblPrecoVenda.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         lblPrecoVenda.setText("Preço de Venda");
 
-        txtNome.setEnabled(false);
-
-        txtPrecoCusto.setEnabled(false);
-
-        txtPercentualLucro.setEnabled(false);
-
         txtPrecoVenda.setEditable(false);
         txtPrecoVenda.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        txtPrecoVenda.setEnabled(false);
 
         btnSalvar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnSalvar.setText("Salvar");
         btnSalvar.setToolTipText("");
-        btnSalvar.setEnabled(false);
         btnSalvar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSalvar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         btnExcluir.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnExcluir.setText("Excluir");
         btnExcluir.setToolTipText("");
-        btnExcluir.setEnabled(false);
         btnExcluir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnExcluir.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         btnEditar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.setToolTipText("");
-        btnEditar.setEnabled(false);
         btnEditar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnEditar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
         btnCancelar.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         btnCancelar.setText("Fechar");
-        btnCancelar.setEnabled(false);
         btnCancelar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnCancelar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 

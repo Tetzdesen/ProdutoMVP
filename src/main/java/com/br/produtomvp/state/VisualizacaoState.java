@@ -1,9 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.br.produtomvp.state;
 
+import com.br.produtomvp.command.CancelarCommand;
+import com.br.produtomvp.command.ExcluirProdutoCommand;
 import com.br.produtomvp.presenter.ProdutoPresenter;
 import java.awt.event.ActionEvent;
 import javax.swing.JOptionPane;
@@ -17,56 +15,56 @@ public class VisualizacaoState extends ProdutoPresenterState {
     public VisualizacaoState(ProdutoPresenter presenter) {
         super(presenter);
         configurarView();
+        
     }
 
     private void configurarView() {
-        presenter.getViewInclusao().getBtnExcluir().addActionListener((ActionEvent e) -> {
+        presenter.getView().getBtnExcluir().addActionListener((ActionEvent e) -> {
             try {
-                excluir();
+                presenter.excluir();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(presenter.getViewInclusao(), ex.getMessage());
+                JOptionPane.showMessageDialog(presenter.getView(), ex.getMessage());
             }
         });
 
-        presenter.getViewInclusao().getBtnEditar().addActionListener((ActionEvent e) -> {
-            editar();
+        presenter.getView().getBtnEditar().addActionListener((ActionEvent e) -> {
+            presenter.editar();
         });
         
-         presenter.getViewInclusao().getBtnCancelar().addActionListener((ActionEvent e) -> {
+         presenter.getView().getBtnCancelar().addActionListener((ActionEvent e) -> {
             fechar();
         });
-        
+        preencherCampos();
         habilitarComponentes();
     }
 
     private void habilitarComponentes() {
-        presenter.getViewInclusao().getBtnEditar().setEnabled(true);
-        presenter.getViewInclusao().getBtnExcluir().setEnabled(true);
-        presenter.getViewInclusao().getBtnSalvar().setEnabled(false);
-        presenter.getViewInclusao().getBtnCancelar().setEnabled(true);
-        presenter.getViewInclusao().getTxtNome().setEnabled(true);
-        presenter.getViewInclusao().getTxtPrecoCusto().setEnabled(true);
-        presenter.getViewInclusao().getTxtPercentualLucro().setEnabled(true);
-        presenter.getViewInclusao().getTxtPrecoVenda().setEnabled(true);
-        presenter.getViewInclusao().getTxtNome().setEditable(false);
-        presenter.getViewInclusao().getTxtPrecoCusto().setEditable(false);
-        presenter.getViewInclusao().getTxtPercentualLucro().setEditable(false);
-        presenter.getViewInclusao().getTxtPrecoVenda().setEditable(false);
+        presenter.getView().getBtnEditar().setEnabled(true);
+        presenter.getView().getBtnExcluir().setEnabled(true);
+        presenter.getView().getBtnSalvar().setEnabled(false);
+        presenter.getView().getBtnCancelar().setEnabled(true);
+        presenter.getView().getTxtNome().setEnabled(true);
+        presenter.getView().getTxtPrecoCusto().setEnabled(true);
+        presenter.getView().getTxtPercentualLucro().setEnabled(true);
+        presenter.getView().getTxtPrecoVenda().setEnabled(true);
+        presenter.getView().getTxtNome().setEditable(false);
+        presenter.getView().getTxtPrecoCusto().setEditable(false);
+        presenter.getView().getTxtPercentualLucro().setEditable(false);
+        presenter.getView().getTxtPrecoVenda().setEditable(false);
     }
 
     @Override
     public void excluir() {
         int confirmacao = JOptionPane.showConfirmDialog(
-                this.presenter.getViewInclusao(),
+                this.presenter.getView(),
                 "Deseja remover o produto selecionado?",
                 "Confirmação",
                 JOptionPane.YES_NO_OPTION
         );
 
         if (confirmacao == JOptionPane.YES_OPTION) {
-            this.presenter.getGerenciadorRepositoryProdutoService().deletarProdutoPorID(presenter.getProduto().getIdProduto());
-            JOptionPane.showMessageDialog(presenter.getViewInclusao(), "Produto excluido com sucesso");
-            fechar();
+           new ExcluirProdutoCommand().executar(presenter);
+           fechar();
         } else {
             presenter.setState(new VisualizacaoState(presenter));
         }
@@ -78,7 +76,14 @@ public class VisualizacaoState extends ProdutoPresenterState {
     }
 
     public void fechar() {
-        presenter.getViewInclusao().dispose();
+        new CancelarCommand().executar(presenter);
+    }
+    
+    private void preencherCampos() {
+        presenter.getView().getTxtNome().setText(presenter.getProduto().getNome());
+        presenter.getView().getTxtPrecoCusto().setText(String.valueOf(presenter.getProduto().getPrecoCusto()));
+        presenter.getView().getTxtPercentualLucro().setText(String.valueOf(presenter.getProduto().getPercentualLucro()));
+        presenter.getView().getTxtPrecoVenda().setText(String.valueOf(presenter.getProduto().getPrecoVenda()));
     }
 
     @Override
