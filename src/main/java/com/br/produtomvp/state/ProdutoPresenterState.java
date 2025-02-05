@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.br.produtomvp.state;
 
 import com.br.produtomvp.presenter.ProdutoPresenter;
@@ -17,7 +13,7 @@ public abstract class ProdutoPresenterState {
 
     public ProdutoPresenterState(ProdutoPresenter presenter) {
         this.presenter = presenter;
-        removeListeners();
+      //  removeListeners();
     }
 
     public void salvar() {
@@ -38,25 +34,25 @@ public abstract class ProdutoPresenterState {
 
     private void removeListeners() {
 
-        ActionListener listenersBtnSalvar[] = presenter.getViewInclusao().getBtnSalvar().getActionListeners();
-        ActionListener listenersBtnExcluir[] = presenter.getViewInclusao().getBtnExcluir().getActionListeners();
-        ActionListener listenersBtnEditar[] = presenter.getViewInclusao().getBtnEditar().getActionListeners();
-        ActionListener listenersBtnCancelar[] = presenter.getViewInclusao().getBtnCancelar().getActionListeners();
+        ActionListener listenersBtnSalvar[] = presenter.getView().getBtnSalvar().getActionListeners();
+        ActionListener listenersBtnExcluir[] = presenter.getView().getBtnExcluir().getActionListeners();
+        ActionListener listenersBtnEditar[] = presenter.getView().getBtnEditar().getActionListeners();
+        ActionListener listenersBtnCancelar[] = presenter.getView().getBtnCancelar().getActionListeners();
         
         for (ActionListener listener : listenersBtnSalvar) {
-            presenter.getViewInclusao().getBtnSalvar().removeActionListener(listener);
+            presenter.getView().getBtnSalvar().removeActionListener(listener);
         }
         
         for (ActionListener listener : listenersBtnExcluir) {
-            presenter.getViewInclusao().getBtnExcluir().removeActionListener(listener);
+            presenter.getView().getBtnExcluir().removeActionListener(listener);
         }
          
         for (ActionListener listener : listenersBtnEditar) {
-            presenter.getViewInclusao().getBtnEditar().removeActionListener(listener);
+            presenter.getView().getBtnEditar().removeActionListener(listener);
         }
         
         for (ActionListener listener : listenersBtnCancelar) {
-            presenter.getViewInclusao().getBtnCancelar().removeActionListener(listener);
+            presenter.getView().getBtnCancelar().removeActionListener(listener);
         }
     }
 }
